@@ -1,5 +1,5 @@
 {
-    "name": "floms/juice/color",
+    "name": "juicelib/color",
     "autoload": {
         "psr-0": {
             "JuiceLib\\Color\\": "src"
