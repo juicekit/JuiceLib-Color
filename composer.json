@@ -4,5 +4,14 @@
         "psr-0": {
             "JuiceLib\\Color\\": "src"
         }
-    }
+    },
+    "homepage": "https://github.com/JuiceLib/JuiceLib-Color",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Yoel Nunez",
+            "email": "y.nunez@floms.com"
+        }
+    ]
 }
