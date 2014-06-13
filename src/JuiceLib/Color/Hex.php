@@ -13,17 +13,20 @@ class Hex implements Color
                 throw new \Exception("Invalid color range.");
             }
             $this->hex = $color;
-        } else if ($color[0] == "#") {
-            $color = \substr($color, 1, \strlen($color) - 1);
+        } else {
+            if ($color[0] == "#") {
+                $color = \substr($color, 1, \strlen($color) - 1);
+            }
+
+            if (\strlen($color) != 3 && \strlen($color) != 6) {
+                throw new \Exception("Hex color length is either 3 or 6.");
+            } else if (\strlen($color) == 3) {
+                $color = \sprintf("%s%s%s", $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
+            }
+
+            $this->hex = base_convert($color, 16, 10);
         }
 
-        if (\strlen($color) != 3 && \strlen($color) != 6) {
-            throw new \Exception("Hex color length is either 3 or 6.");
-        } else if (\strlen($color) == 3) {
-            $color = \sprintf("%s%s%s", $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
-        }
-
-        $this->hex = base_convert($color, 16, 10);
     }
 
     public function toCMYK()
