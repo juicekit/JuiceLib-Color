@@ -8,22 +8,22 @@ class Hex implements Color
 
     public function __construct($color)
     {
-
         if (\is_int($color)) {
-            throw new \Exception("Unimplemented method.");
-        } elseif ($color[0] == "#") {
+            if ($color > 16777216 || $color < 0) {
+                throw new \Exception("Invalid color range.");
+            }
+            $this->hex = $color;
+        } else if ($color[0] == "#") {
             $color = \substr($color, 1, \strlen($color) - 1);
         }
 
         if (\strlen($color) != 3 && \strlen($color) != 6) {
             throw new \Exception("Hex color length is either 3 or 6.");
-        }
-
-        if (\strlen($color) == 3) {
+        } else if (\strlen($color) == 3) {
             $color = \sprintf("%s%s%s", $color[0] . $color[0], $color[1] . $color[1], $color[2] . $color[2]);
         }
 
-        $this->hex = $color;
+        $this->hex = base_convert($color, 16, 10);
     }
 
     public function toCMYK()
@@ -50,9 +50,9 @@ class Hex implements Color
     {
         $hex = $this->hex;
 
-        $r = \base_convert(\substr($hex, 0, 2), 16, 10);
-        $g = \base_convert(\substr($hex, 2, 2), 16, 10);
-        $b = \base_convert(\substr($hex, 4, 2), 16, 10);
+        $r = $hex % 256;
+        $g = $hex / 256 % 256;
+        $b = $hex / 65536 % 256;
 
         return new RGB($r, $g, $b);
     }

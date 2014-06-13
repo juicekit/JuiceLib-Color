@@ -134,17 +134,12 @@ class RGB implements Color
         $g = base_convert($this->g, 10, 16);
         $b = base_convert($this->b, 10, 16);
 
-        if (strlen($r) < 2) {
-            $r = "0" . $r;
-        }
-        if (strlen($g) < 2) {
-            $g = "0" . $g;
-        }
-        if (strlen($b) < 2) {
-            $b = "0" . $b;
-        }
 
-        return new Hex(\sprintf("%s%s%s", $r, $g, $b));
+        $hex = strlen($r) < 2 ? "0" . $r : $r;
+        $hex .= strlen($g) < 2 ? "0" . $g : $g;
+        $hex .= strlen($b) < 2 ? "0" . $b : $b;
+
+        return new Hex(base_convert($hex, 16, 10));
     }
 
     public function toRGB()
